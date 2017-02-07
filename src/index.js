@@ -4,6 +4,7 @@ import SearchBar from './components/search_bar';
 import YTSearch from 'youtube-api-search';
 import VideoList from './components/video_list';
 import VideoDetails from './components/video_details';
+import _ from 'lodash';
 /*Create a new component. This component should produce some html*/
 //some HTML
 
@@ -29,23 +30,24 @@ class App extends Component {
             videos: [],
             selectedVideo: null
         };
-       this.videoSearch('other people');
+        this.videoSearch('other people');
     }
 
-    videoSearch(term){
+    videoSearch(term) {
         YTSearch({key: API_KEY, term: term}, videos => {
             this.setState({
                 videos: videos,
                 selectedVideo: videos[0]
             });
             //this.setState({videos:videos});
-
         });
     }
+
     render() {
+        const videoSearch =_.debounce((term) => {this.videoSearch(term)},300);
         return (
             <div>
-                <SearchBar onSearchTermChange = {term => this.videoSearch(term)}/>
+                <SearchBar onSearchTermChange={videoSearch}/>
                 <VideoDetails video={this.state.selectedVideo}/>
                 <VideoList videos={this.state.videos} onVideoSelect={selectedVideo => this.setState({selectedVideo}) }/>
             </div>);
