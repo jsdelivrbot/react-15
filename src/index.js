@@ -1,15 +1,14 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { Provider } from 'react-redux';
-import { createStore, applyMiddleware } from 'redux';
+import * as React from "react";
+import ReactDom from "react-dom";
+/*Create a new component. This component should produce some html*/
+//some HTML
 
-import App from './components/app';
-import reducers from './reducers';
+//const is doing the same thing as var
+//const means that is not gonna change
+//we return JSX a subset of html
+const App = () => {
+    return <div>Hi,dude!</div>;
+}
 
-const createStoreWithMiddleware = applyMiddleware()(createStore);
-
-ReactDOM.render(
-  <Provider store={createStoreWithMiddleware(reducers)}>
-    <App />
-  </Provider>
-  , document.querySelector('.container'));
+//Take this component's generated html and put it on the page
+ReactDom.render(<App/>, document.querySelector('.container'));
