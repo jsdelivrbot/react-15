@@ -19,6 +19,8 @@ class PostsNew extends Component {
     }
     render() {
         const {fields:{title, categories, content}, handleSubmit} = this.props;// handleSubmit = this.props.handleSubmit
+        //const title = this.props.fields.title;
+
         return (
             <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
                 <h3>Create a New Post</h3>
@@ -52,7 +54,6 @@ class PostsNew extends Component {
 }
 function validate(values) {
     const errors = {};
-
     if (!values.title) {
         errors.title = 'Enter a username';
     }
@@ -62,7 +63,6 @@ function validate(values) {
     if (!values.content) {
         errors.content = 'Enter some content';
     }
-
     return errors;
 }
 //connect: first arg is mapStateToProps, 2nd is mapDispatchToProps
