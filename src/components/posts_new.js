@@ -1,16 +1,26 @@
 /**
  * Created by IrianLaptop on 3/16/2017.
  */
-import React, {Component} from 'react';
+import React, {Component, PropTypes} from 'react';
 import {reduxForm} from 'redux-form';
 import {createPost} from '../actions/index';
 import {Link} from 'react-router';
 class PostsNew extends Component {
+    static contextTypes = {
+        router: PropTypes.object
+    };
 
+    //the react router is available to all components through the context property. to get access we have to define a contextTypes
+    onSubmit(props){
+        this.props.createPost(props)
+            .then(()=>{
+                this.context.router.push('/');
+            });
+    }
     render() {
         const {fields:{title, categories, content}, handleSubmit} = this.props;// handleSubmit = this.props.handleSubmit
         return (
-            <form onSubmit={handleSubmit(this.props.createPost)}>
+            <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
                 <h3>Create a New Post</h3>
                 <div className={`form-group ${title.touched && title.invalid ? 'has-danger' : ''}`}>
                     <label>Title</label>
